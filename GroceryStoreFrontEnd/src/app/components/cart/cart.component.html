@@ -1,0 +1,86 @@
+<div
+  *ngIf="isLoading"
+  class="h-100 w-100 d-flex justify-content-center align-items-center"
+>
+  <div class="spinner-border text-success" role="status">
+    <span class="sr-only"></span>
+  </div>
+</div>
+<div
+  class="d-flex h-100 gap-4 flex-sm-column flex-column flex-md-row flex-lg-row flex-xl-row align-items-center align-items-sm-center align-items-md-start p-4 pt-5"
+>
+  <div
+    *ngIf="this.cartProducts.length === 0"
+    class="d-flex flex-column align-items-center justify-content-center gap-3 w-100 h-100"
+  >
+    <h2>Cart Is Empty...</h2>
+    <button class="btn primary-green fs-4" (click)="goToDashboard()">
+      Start Shopping
+    </button>
+  </div>
+  <div
+    class="d-flex gap-5 p-5 pt-0 flex-wrap justify-content-center justify-content-sm-center justify-content-md-start"
+    style="width: 60%"
+    *ngIf="this.cartProducts.length !== 0"
+  >
+    <div
+      *ngFor="let product of cartProducts"
+      style="height: max-content"
+      class="border rounded p-2 bg-light"
+    >
+      <app-cart-card
+        [productData]="product"
+        [inputValue]="product.productQuantityInCart"
+        (changeQuantityInCart)="
+          updateProductQuantity($event, product.productId)
+        "
+        (removeProductFromCart)="removeFromCart($event)"
+      ></app-cart-card>
+      <div>{{ product.productQuantity }}</div>
+    </div>
+  </div>
+  <div
+    class="flex-grow-1 d-flex p-3 px-5 flex-column align-items-center border-green-2 rounded-1"
+    *ngIf="this.availableProductsInCart.length !== 0"
+  >
+    <h4>Order Summary</h4>
+    <table class="table table-striped text-center table-bordered">
+      <thead class="">
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of availableProductsInCart">
+          <td>{{ product.productName }}</td>
+          <td>{{ product.productQuantityInCart }}</td>
+          <td>&#8377;{{ product.productPrice - product.productDiscount }}</td>
+          <td>
+            &#8377;{{
+              (product.productPrice - product.productDiscount) *
+                product.productQuantityInCart
+            }}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="fs-5">Grand Total</td>
+          <td>
+            <del style="color: rgb(149, 144, 144)"
+              >&#8377;{{ priceWithoutDiscount }}</del
+            >
+            <span class="fs-5">&nbsp;&#8377;{{ grandTotal }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="w-100 text-end text-primary-green h6 px-2">
+      You saved &#8377;{{ priceWithoutDiscount - grandTotal }}
+    </div>
+    <button class="btn secondary-orange fs-5 mt-1" (click)="placeOrder()">
+      Place Order
+    </button>
+  </div>
+</div>

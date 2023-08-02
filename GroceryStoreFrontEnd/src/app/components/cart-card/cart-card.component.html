@@ -1,0 +1,71 @@
+<div class="overflow-hidden" *ngIf="!isLoading">
+  <div class="d-flex justify-content-center">
+    <img
+      [src]="getImageUrl(productData.productId)"
+      [alt]="productData.productName"
+      width="200"
+      height="200"
+      class="rounded d-block"
+    />
+  </div>
+  <div class="d-flex flex-column p-2">
+    <h4>
+      {{ productData.productName | slice : 0 : 13
+      }}<span *ngIf="productData.productName.length > 13">...</span>
+    </h4>
+    <span
+      >{{ productData.productDescription | slice : 0 : 20
+      }}<span *ngIf="productData.productDescription.length > 20"
+        >...</span
+      ></span
+    >
+    <div class="mt-2">
+      <del style="color: rgb(179, 173, 173)"
+        >&#8377;{{ productData.productPrice }} </del
+      >&nbsp;
+      <span class="h5"
+        >&#8377;{{
+          productData.productPrice - productData.productDiscount
+        }}</span
+      >
+      <span class="h6 text-primary-green"
+        >&nbsp;&#40;&#8377;{{ productData.productDiscount }} Off&#41;</span
+      >
+    </div>
+    <div *ngIf="!isOutOfStock() && !productData.isDeleted">
+      <form
+        (submit)="emitChangeQuantityInCart(inputQuantity.value)"
+        class="d-flex gap-1 mt-2 align-items-center"
+      >
+        <input
+          type="number"
+          #inputQuantity
+          class="px-2 py-3 w-75 fs-5"
+          style="height: 20px"
+          min="1"
+          [max]="productData.productQuantity"
+          [(ngModel)]="inputValue"
+          name="input"
+        />
+        <button class="btn border-green-2 flex-grow-1" type="submit">Ok</button>
+      </form>
+    </div>
+    <div *ngIf="isOutOfStock()" class="text-danger fs-4 mt-2 text-center">
+      Out Of Stock!
+    </div>
+    <div
+      *ngIf="productData.isDeleted"
+      class="text-danger fs-4 mt-2 text-center"
+    >
+      No longer available!
+    </div>
+    <div class="mt-3 d-flex justify-content-center gap-4">
+      <button class="btn btn-danger" (click)="emitRemoveProductFromCart()">
+        Remove
+      </button>
+      <button class="btn primary-green" (click)="viewProduct()">
+        View Product
+      </button>
+    </div>
+  </div>
+</div>

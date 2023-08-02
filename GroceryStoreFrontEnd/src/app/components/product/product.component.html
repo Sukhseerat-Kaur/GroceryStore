@@ -1,0 +1,158 @@
+<div class="h-100 w-100 d-flex p-5 align-items-center flex-column gap-3">
+  <div
+    *ngIf="isLoading"
+    class="h-100 w-100 d-flex justify-content-center align-items-center"
+  >
+    <div class="spinner-border text-success" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+
+  <div
+    *ngIf="!isLoading && productData.isDeleted"
+    class="d-flex flex-column align-items-center justify-content-center gap-3 w-100 h-100"
+  >
+    <h2>Product No Longer Available...</h2>
+    <button class="btn primary-green fs-4" (click)="goToDashboard()">
+      Start Shopping
+    </button>
+  </div>
+  <div
+    class="d-flex gap-5 w-75 text-wrap p-5 flex-column flex-md-row flex-lg-row flex-xl-row"
+    *ngIf="!isLoading && !productData.isDeleted"
+  >
+    <img [src]="getImageUrl()" width="400" height="400" />
+
+    <div class="d-flex flex-column flex-grow-1">
+      <h2>{{ productData.productName }}</h2>
+      <div class="fs-5 text-wrap" style="color: rgb(126, 130, 140)">
+        {{ productData.productDescription }}
+      </div>
+      <div class="mt-4 mb-4 d-flex gap-4 fs-5">
+        <span
+          class="border px-2 py-1 d-inline-flex align-items-center"
+          style="width: max-content"
+        >
+          3.5&nbsp;<fa-icon
+            [icon]="faStar"
+            class="text-primary-green"
+          ></fa-icon>
+        </span>
+        <span
+          class="border px-2 py-1 d-inline-flex align-items-center"
+          style="width: max-content"
+        >
+          420 ratings
+        </span>
+      </div>
+      <div class="">
+        <span class="fs-2"
+          >&#8377;{{
+            productData.productPrice - productData.productDiscount
+          }}</span
+        >&nbsp;
+        <del class="fs-4" style="color: rgb(179, 173, 173)"
+          >&#8377;{{ productData.productPrice }}
+        </del>
+      </div>
+      <div
+        class="fs-6 mt-3"
+        style="color: rgb(97, 96, 96)"
+        *ngIf="!isOutOfStock && !(isAdmin || isSuperAdmin)"
+      >
+        <span class="text-primary-green h6">Hurry Up!!</span>&nbsp;<span
+          >Only
+          {{ productData.productQuantity }}
+          pieces left in stock</span
+        >
+      </div>
+      <div
+        class="mt-2 d-flex flex-column w-50 gap-3"
+        *ngIf="userId !== null && !(isAdmin || isSuperAdmin)"
+      >
+        <input
+          type="number"
+          [(ngModel)]="quantityInputValue"
+          class="px-2 py-1 fs-4 quantity-input"
+          min="1"
+          [max]="productData.productQuantity"
+          style="height: 35px"
+          (change)="checkQuantity()"
+          *ngIf="!isOutOfStock()"
+        />
+        <button
+          class="btn primary-green fs-5"
+          (click)="addToCart()"
+          [disabled]="disableAddToCart()"
+        >
+          Add To Cart
+        </button>
+        <h3 class="text-danger" *ngIf="isOutOfStock()">Out Of Stock!</h3>
+      </div>
+      <div *ngIf="isAdmin || isSuperAdmin" class="d-flex mt-3 gap-4">
+        <button class="btn btn-danger fs-5" (click)="deleteProduct()">
+          <fa-icon [icon]="faTrash"></fa-icon>
+          Delete
+        </button>
+        <button class="btn primary-green fs-5" (click)="goToEditPage()">
+          <fa-icon [icon]="faEdit"></fa-icon> Edit
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="w-75 border-top p-2" *ngIf="!isLoading && !productData.isDeleted">
+    <h3 class="mb-3">Customer Reviews</h3>
+    <div class="p-2 pb-0">
+      <div class="h5 mb-0">{{ userName }}</div>
+      <div style="color: rgb(126, 130, 140)">
+        <i>{{ userEmail }}</i>
+      </div>
+    </div>
+    <textarea
+      placeholder="Add Review..."
+      class="w-100 p-3 rounded-1 review-input mt-2"
+      [(ngModel)]="reviewInput"
+      *ngIf="userId !== null"
+    ></textarea>
+    <div class="w-100 d-flex justify-content-end mt-2" *ngIf="userId !== null">
+      <button class="btn secondary-orange" (click)="postReview()">
+        Post Review
+      </button>
+    </div>
+    <div>
+      <div
+        *ngFor="let review of reviews"
+        class="border-top mt-3 p-2 px-4"
+        style="background-color: rgb(243, 242, 242)"
+      >
+        <div class="">
+          <div class="d-flex justify-content-between">
+            <span class="h5 mb-0 text-primary-green">{{
+              review.userName
+            }}</span>
+            <span style="color: rgb(126, 130, 140)">{{
+              review.time | date : "short"
+            }}</span>
+          </div>
+          <div style="color: rgb(126, 130, 140)">
+            <i class="border-bottom">{{ review.userEmail }}</i>
+          </div>
+        </div>
+        <div class="px-3 py-2">
+          {{ review.reviewString }}
+        </div>
+        <div
+          class="d-flex justify-content-end"
+          *ngIf="isSuperAdmin || isAdmin || this.userEmail === review.userEmail"
+        >
+          <button
+            class="btn btn-danger"
+            (click)="deleteReview(review.userId, review.productId, review.time)"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

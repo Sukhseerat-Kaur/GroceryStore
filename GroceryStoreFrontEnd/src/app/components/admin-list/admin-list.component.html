@@ -1,0 +1,40 @@
+<div class="p-5 d-flex flex-column gap-3">
+  <div class="d-flex justify-content-center position-relative">
+    <button
+      class="btn secondary-orange position-absolute end-0"
+      (click)="goToAddAdminPage()"
+    >
+      <fa-icon [icon]="faPlus" class=""></fa-icon>
+      Add New Admin
+    </button>
+    <h3>List Of Admins</h3>
+  </div>
+  <div>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">User ID</th>
+          <th scope="col">User Name</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Password</th>
+          <th scope="col">User Role</th>
+          <th scope="col">Operations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let admin of adminList">
+          <td>{{ admin.userId }}</td>
+          <td>{{ admin.userName }}</td>
+          <td>{{ admin.phoneNumber }}</td>
+          <td>{{ admin.password }}</td>
+          <td>{{ admin.userRole }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteAdmin(admin.userId)">
+              Remove Admin
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

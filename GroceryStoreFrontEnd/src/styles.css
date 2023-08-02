@@ -1,0 +1,128 @@
+/* You can add global styles to this file, and also import other style files */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+}
+
+.search-input {
+  height: 40px;
+  outline: 0;
+}
+
+.search-input:focus,
+.review-input:focus {
+  outline: 3px solid rgb(90, 227, 125);
+  border: 0;
+}
+
+.text-primary-green {
+  color: rgb(52, 169, 82);
+}
+
+div.navbar-container {
+  background: rgb(38, 139, 64);
+}
+div.navbar-container a {
+  color: white;
+}
+.primary-green {
+  background: rgb(52, 169, 82);
+}
+
+button.primary-green {
+  color: white;
+}
+
+button.primary-green:hover {
+  background: rgb(38, 139, 64);
+  color: white;
+}
+
+.active-category {
+  background: rgb(197, 245, 209);
+}
+
+.unactive-category {
+  background: rgb(241, 237, 237);
+}
+
+.border-green-2 {
+  border: 2px solid rgb(52, 169, 82);
+}
+
+.required-field-asterisk {
+  color: red;
+}
+
+input[type="checkbox"]:checked {
+  accent-color: rgb(52, 169, 82) !important;
+}
+
+button.primary-green:disabled,
+button.primary-green[disabled] {
+  background-color: rgba(10, 132, 10, 0.793);
+  color: white;
+  border: 0;
+}
+
+button.border-green-2:hover {
+  background-color: rgb(38, 139, 64);
+  color: white;
+}
+
+th {
+  background: rgb(52, 169, 82) !important;
+  color: white !important;
+}
+
+.secondary-orange {
+  background-color: rgb(236, 146, 2);
+}
+button.secondary-orange {
+  color: white;
+}
+button.secondary-orange:hover {
+  background-color: rgb(219, 136, 2);
+  color: white;
+}
+
+.review-input {
+  outline: 0;
+}
+
+.date-picker:hover,
+.date-picker:focus,
+.date-picker:focus-visible {
+  border: 3px solid rgb(90, 227, 125) !important;
+}
+
+.navbar-nav .nav-link.active {
+  color: white;
+  border-bottom: 2px solid black;
+  animation: border-bottom-width 0.3s forwards;
+}
+@media (max-width: 768px) {
+  .navbar-nav .nav-link.active {
+    width: 20%;
+  }
+  .navbar-nav .nav-item {
+    position: static !important;
+  }
+  .order-div {
+    display: flex;
+    flex-direction: column;
+    
+  }
+}
+.navbar-nav .nav-link.active:click {
+  border-bottom-width: 100%;
+}
+
+

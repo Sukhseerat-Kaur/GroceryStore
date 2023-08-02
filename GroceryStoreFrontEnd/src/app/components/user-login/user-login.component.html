@@ -1,0 +1,39 @@
+<div
+  class="d-flex flex-column gap-4 h-100 align-items-center justify-content-center"
+>
+  <form
+    [formGroup]="userLoginForm"
+    (ngSubmit)="onSubmit()"
+    class="d-flex flex-column gap-3"
+  >
+    <div class="form-group d-flex flex-column">
+      <label name="email" class="fs-4 mb-1">Email:</label>
+      <input
+        class="form-control"
+        type="text"
+        id="email"
+        placeholder="Enter Email... "
+        formControlName="userEmail"
+      />
+    </div>
+    <div class="form-group d-flex flex-column">
+      <label name="password" class="fs-4 mb-1">Password: </label>
+      <input
+        class="form-control"
+        type="password"
+        id="password"
+        formControlName="password"
+      />
+    </div>
+    <div class="form-group d-flex justify-content-center w-100">
+      <button
+        type="submit"
+        class="btn primary-green"
+        [disabled]="!userLoginForm.valid"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+  <span class="">New User? <a routerLink="/register">Register here</a></span>
+</div>

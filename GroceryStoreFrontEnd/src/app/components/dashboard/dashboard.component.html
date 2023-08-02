@@ -1,0 +1,85 @@
+<style>
+  .my-pagination ::ng-deep .ngx-pagination .current {
+    background: rgb(52, 169, 82);
+  }
+</style>
+
+<div class="h-100 d-flex w-100 flex-column mt-2">
+  <div
+    *ngIf="isLoading"
+    class="h-100 w-100 d-flex justify-content-center align-items-center"
+  >
+    <div class="spinner-border text-success" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+  <main
+    class="d-flex flex-column align-items-center flex-grow-1 pt-3"
+    *ngIf="!isLoading"
+  >
+    <div
+      class="w-100 d-flex justify-content-center position-relative align-items-center"
+    >
+      <input
+        autofocus
+        type="text"
+        (input)="handleSearchChange($event)"
+        class="border rounded p-3 w-25 search-input"
+        placeholder="Search..."
+      />
+      <button
+        class="btn secondary-orange position-absolute end-0 me-3"
+        *ngIf="isAdmin || isSuperAdmin"
+        (click)="goToAddProductPage()"
+      >
+        <fa-icon [icon]="faPlus" class=""></fa-icon>
+        Add New Product
+      </button>
+    </div>
+
+    <div class="p-3 w-100 gap-4 d-flex justify-content-center mt-4 row">
+      <div
+        *ngFor="let category of categories"
+        class="rounded-1 p-1 cursor-pointer col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-truncate text-center"
+        role="button"
+        [id]="category"
+        (click)="handleCategoryChange(category)"
+        [ngClass]="{
+          'active-category': selectedCategories.includes(category),
+          'unactive-category': !selectedCategories.includes(category)
+        }"
+      >
+        {{ category }}
+      </div>
+    </div>
+    <div
+      class="d-flex gap-5 flex-grow-1 w-100 p-5 pt-4 justify-content-center flex-wrap"
+    >
+      <div
+        *ngFor="
+          let product of filteredProducts
+            | paginate
+              : {
+                  itemsPerPage: tableSize,
+                  currentPage: page,
+                  totalItems: count
+                };
+          let i = index
+        "
+        style="height: max-content"
+        class="border rounded p-2 bg-light d-flex justify-content-center"
+      >
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)"
+        class="my-pagination"
+      >
+      </pagination-controls>
+    </div>
+  </main>
+</div>

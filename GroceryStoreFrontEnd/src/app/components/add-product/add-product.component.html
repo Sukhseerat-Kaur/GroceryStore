@@ -1,0 +1,178 @@
+<div class="h-100 p-5 d-flex justify-content-center">
+  <form
+    class="form"
+    [formGroup]="addProductForm"
+    (ngSubmit)="addProduct()"
+    class="w-50"
+  >
+    <div class="form-group mb-4">
+      <div class="">
+        <label for="name" class="fs-5 mb-1"
+          >Product Name: <span class="required-field-asterisk"> *</span></label
+        >
+        <input
+          class="form-control"
+          id="name"
+          type="text"
+          placeholder="Enter Product Name"
+          formControlName="name"
+          [ngClass]="{
+              'is-invalid': addProductFormControl['name'].touched && (addProductFormControl['name'].errors?.['required'])
+          }"
+        />
+      </div>
+      <div class="">
+        <span
+          class="text-danger"
+          *ngIf="addProductFormControl['name'].touched && addProductFormControl['name'].errors?.['required']"
+          >Please enter Product Name</span
+        >
+      </div>
+    </div>
+    <div class="form-group mb-4">
+      <div class="">
+        <label for="description" class="fs-5 mb-1"
+          >Product Description:
+          <span class="required-field-asterisk"> *</span></label
+        >
+        <input
+          class="form-control"
+          id="description"
+          placeholder="Enter Product Description"
+          formControlName="description"
+          [ngClass]="{
+            'is-invalid': addProductFormControl['description'].touched && (addProductFormControl['description'].errors?.['required'])
+        }"
+        />
+      </div>
+      <div class="">
+        <span
+          class="text-danger"
+          *ngIf="addProductFormControl['description']?.touched && addProductFormControl['description']?.errors?.['required']"
+          >Please enter Product description.</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <label class="fs-5 mb-1">Categories: </label>
+      <div>
+        <div *ngFor="let category of availableCategories" class="d-flex gap-2">
+          <input
+            name="categories"
+            type="checkbox"
+            role="checkbox"
+            [id]="category"
+            [formControlName]="category"
+          />
+          <label [for]="category">{{ category }}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <div class="">
+        <label for="quantity" class="fs-5 mb-1"
+          >Product Availability: <span class="required-field-asterisk"> *</span>
+        </label>
+        <input
+          class="form-control"
+          id="quantity"
+          type="text"
+          placeholder="Enter Product Quantity"
+          formControlName="quantity"
+          [ngClass]="{
+                'is-invalid': addProductFormControl['quantity'].touched && (addProductFormControl['quantity'].errors?.['required'])
+            }"
+        />
+      </div>
+      <div class="">
+        <span
+          class="text-danger"
+          *ngIf="addProductFormControl['quantity'].touched && addProductFormControl['quantity'].errors?.['required']"
+          >Please enter Product Quantity Available</span
+        >
+        <span
+          class="text-danger"
+          *ngIf="addProductFormControl['quantity'].errors?.['pattern']"
+          >Please enter a numeric value</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <div class="">
+        <label for="price" class="fs-5 mb-1"
+          >Product Price (in Rs.):
+          <span class="required-field-asterisk"> *</span></label
+        >
+        <input
+          class="form-control"
+          id="price"
+          type="text"
+          placeholder="Enter Product Price"
+          formControlName="price"
+          [ngClass]="{
+                'is-invalid': addProductFormControl['price'].touched && (addProductFormControl['price'].errors?.['required'])
+            }"
+        />
+      </div>
+      <div class="">
+        <span
+          class="text-danger"
+          *ngIf="addProductFormControl['price'].touched && addProductFormControl['price'].errors?.['required']"
+          >Please enter Product Price</span
+        >
+        <span
+          class="text-danger"
+          *ngIf="addProductFormControl['price'].errors?.['pattern']"
+          >Please enter a numeric value</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <div class="">
+        <label for="discount" class="fs-5 mb-1">Product Discount: </label>
+        <input
+          class="form-control"
+          id="discount"
+          type="text"
+          placeholder="Enter Product Discount"
+          formControlName="discount"
+        />
+        <span
+          class="text-danger"
+          *ngIf="addProductFormControl['discount'] && addProductFormControl['discount'].errors?.['pattern']"
+          >Please enter a numeric value</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <div class="">
+        <label for="image" class="fs-5 mb-1"
+          >Product Image: <span class="required-field-asterisk"> *</span>
+        </label>
+        <input
+          class="form-control"
+          id="image"
+          type="file"
+          (change)="onSelectFile($event)"
+          placeholder="Enter Product Image"
+        />
+      </div>
+      <div class=""></div>
+    </div>
+
+    <div class="form-group w-100 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="btn primary-green"
+        [disabled]="!addProductForm.valid || selectedFile == null"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

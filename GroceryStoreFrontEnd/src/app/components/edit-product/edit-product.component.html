@@ -1,0 +1,182 @@
+<div class="h-100 p-5 d-flex justify-content-center">
+  <form
+    class="form"
+    [formGroup]="editProductForm"
+    (ngSubmit)="updateProduct()"
+    *ngIf="isDataFetched"
+    class="w-50"
+  >
+    <div class="form-group mb-4">
+      <div class="">
+        <label for="name" class="fs-5 mb-1"
+          >Product Name: <span class="required-field-asterisk"> *</span></label
+        >
+        <input
+          class="form-control"
+          id="name"
+          type="text"
+          placeholder="Enter Product Name"
+          formControlName="name"
+          [ngClass]="{
+                'is-invalid': editProductFormControl['name'].touched && (editProductFormControl['name'].errors?.['required'])
+            }"
+        />
+      </div>
+      <div class="">
+        <span
+          class="text-danger"
+          *ngIf="editProductFormControl['name'].touched && editProductFormControl['name'].errors?.['required']"
+          >Please enter Product Name</span
+        >
+      </div>
+    </div>
+    <div class="form-group mb-4">
+      <div class="">
+        <label for="description" class="fs-5 mb-1"
+          >Product Description:<span class="required-field-asterisk"> *</span>
+        </label>
+        <input
+          class="form-control"
+          id="description"
+          placeholder="Enter Product Description"
+          formControlName="description"
+          [ngClass]="{
+            'is-invalid': editProductFormControl['description'].touched && (editProductFormControl['description'].errors?.['required'])
+        }"
+        />
+      </div>
+      <div class="d-flex">
+        <span
+          class="text-danger"
+          *ngIf="editProductFormControl['description']?.touched && editProductFormControl['description']?.errors?.['required']"
+          >Please enter Product Description</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <label class="fs-5 mb-1">Categories: </label>
+      <div>
+        <div *ngFor="let category of availableCategories" class="d-flex gap-2">
+          <input
+            name="categories"
+            type="checkbox"
+            role="checkbox"
+            [id]="category"
+            [formControlName]="category"
+          />
+          <label [for]="category">{{ category }}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <div class="">
+        <label for="quantity" class="fs-5 mb-1"
+          >Product Availability: <span class="required-field-asterisk"> *</span>
+        </label>
+        <input
+          class="form-control"
+          id="quantity"
+          type="text"
+          placeholder="Enter Product Quantity"
+          formControlName="quantity"
+          [ngClass]="{
+                  'is-invalid': editProductFormControl['quantity'].touched && (editProductFormControl['quantity'].errors?.['required'])
+              }"
+        />
+      </div>
+      <div class="">
+        <span
+          class="text-danger"
+          *ngIf="editProductFormControl['quantity'].touched && editProductFormControl['quantity'].errors?.['required']"
+          >Please enter Product Quantity Available</span
+        >
+        <span
+          class="text-danger"
+          *ngIf="editProductFormControl['quantity'].errors?.['pattern']"
+          >Please enter a numeric value</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <div class="">
+        <label for="price" class="fs-5 mb-1"
+          >Product Price: <span class="required-field-asterisk"> *</span>
+        </label>
+        <input
+          class="form-control"
+          id="price"
+          type="text"
+          placeholder="Enter Product Price"
+          formControlName="price"
+          [ngClass]="{
+                  'is-invalid': editProductFormControl['price'].touched && (editProductFormControl['price'].errors?.['required'])
+              }"
+        />
+      </div>
+      <div class="">
+        <span
+          class="text-danger"
+          *ngIf="editProductFormControl['price'].touched && editProductFormControl['price'].errors?.['required']"
+          >Please enter Product Price</span
+        >
+        <span
+          class="text-danger"
+          *ngIf="editProductFormControl['price'].errors?.['pattern']"
+          >Please enter a numeric value</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <div class="">
+        <label for="discount" class="fs-5 mb-1">Product Discount: </label>
+        <input
+          class="form-control"
+          id="discount"
+          type="text"
+          placeholder="Enter Product Discount"
+          formControlName="discount"
+        />
+        <span
+          class="text-danger"
+          *ngIf="editProductFormControl['discount'] && editProductFormControl['discount'].errors?.['pattern']"
+          >Please enter a numeric value</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <div class="d-flex flex-column gap-2">
+        <label for="image" class="fs-5 mb-1"
+          >Product Image: <span class="required-field-asterisk"> *</span></label
+        >
+        <img
+          [src]="getImageUrl(productData.productId)"
+          width="200"
+          height="200"
+        />
+        <input
+          class="form-control"
+          id="image"
+          type="file"
+          (change)="onSelectFile($event)"
+          placeholder="Enter Product Image"
+          value="productImage"
+        />
+      </div>
+    </div>
+
+    <div class="form-group w-100 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="btn primary-green"
+        [disabled]="!editProductForm.valid || selectedFile == null"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

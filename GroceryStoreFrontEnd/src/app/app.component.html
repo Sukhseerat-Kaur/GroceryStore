@@ -1,0 +1,113 @@
+﻿<div class="d-flex flex-column h-100 w-100">
+  <div class="navbar navbar-container navbar-expand-md">
+    <a class="navbar-brand ms-3 fs-3" routerLink="/dashboard" role="button"
+      >Grocery Store</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="isNavbarCollapsed = !isNavbarCollapsed"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse position-relative"
+      [ngbCollapse]="isNavbarCollapsed"
+    >
+      <ul
+        class="navbar-nav mr-auto"
+        [ngClass]="{
+          'ps-3': !isNavbarCollapsed
+        }"
+      >
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/dashboard"
+            [routerLinkActive]="['active']"
+            role="button"
+            >Products</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            *ngIf="!loggedIn"
+            routerLink="/login"
+            [routerLinkActive]="['active']"
+            role="button"
+            >Login</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            *ngIf="!loggedIn"
+            routerLink="/register"
+            [routerLinkActive]="['active']"
+            role="button"
+            >Register</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            *ngIf="loggedIn && !(isAdmin || isSuperAdmin)"
+            routerLink="/cart"
+            [routerLinkActive]="['active']"
+            role="button"
+            >View Cart</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            *ngIf="loggedIn && !(isAdmin || isSuperAdmin)"
+            routerLink="/my-orders"
+            [routerLinkActive]="['active']"
+            role="button"
+            >My Orders</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            *ngIf="loggedIn && (isAdmin || isSuperAdmin)"
+            role="button"
+            routerLink="/most-ordered"
+            [routerLinkActive]="['active']"
+            >Top Ordered</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            *ngIf="loggedIn && isSuperAdmin"
+            role="button"
+            routerLink="/admin-list"
+            [routerLinkActive]="['active']"
+            >Admins</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="loggedIn" (click)="logOut()" role="button"
+            >Sign out</a
+          >
+        </li>
+
+        <li class="nav-item position-absolute end-0 h5 me-5">
+          <a
+            class="nav-link"
+            *ngIf="loggedIn"
+            [routerLinkActive]="['active']"
+            role="button"
+            >{{ userName }}</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="flex-grow-1">
+    <router-outlet></router-outlet>
+  </div>
+</div>

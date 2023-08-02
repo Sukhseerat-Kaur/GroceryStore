@@ -1,0 +1,4 @@
+C:\Users\sukhseeratkaur\Desktop\ExitTest\GroceryStore\GroceryStoreFrontEnd\obj\Debug\GroceryStoreFrontEnd.esproj.SuggestedBindingRedirects.cache
+C:\Users\sukhseeratkaur\Desktop\ExitTest\GroceryStore\GroceryStoreFrontEnd\obj\Debug\GroceryStoreFrontEnd.esproj.CoreCompileInputs.cache
+C:\Users\sukhseeratkaur\Desktop\sukhseerat-kaur\ExitTest\GroceryStore\GroceryStoreFrontEnd\obj\Debug\GroceryStoreFrontEnd.esproj.SuggestedBindingRedirects.cache
+C:\Users\sukhseeratkaur\Desktop\sukhseerat-kaur\ExitTest\GroceryStore\GroceryStoreFrontEnd\obj\Debug\GroceryStoreFrontEnd.esproj.CoreCompileInputs.cache

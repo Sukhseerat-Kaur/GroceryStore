@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Context\NewFile1.txt" />
+    <None Remove="Entities\NewFile1.txt" />
+    <None Remove="Repository\Interfaces\NewFile1.txt" />
+    <None Remove="Repository\NewFile1.txt" />
+    <None Remove="UnitOfWork\Interfaces\NewFile1.txt" />
+    <None Remove="UnitOfWork\NewFile1.txt" />
+    <None Remove="Repository\OrderRepository" />
+    <None Remove="Utilities\Mapper\NewFile1.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.16">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GroceryStore.Utilities\GroceryStoreCore.csproj" />
+  </ItemGroup>
+
+</Project>

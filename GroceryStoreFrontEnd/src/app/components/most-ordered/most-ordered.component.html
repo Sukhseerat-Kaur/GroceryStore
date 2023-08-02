@@ -1,0 +1,30 @@
+<div class="h-100 d-flex flex-column align-items-center">
+  <div>
+    <input
+      type="month"
+      [(ngModel)]="monthAndYear"
+      (change)="onChange()"
+      class="p-2 fs-5 mt-4 rounded border border-3 date-picker"
+    />
+  </div>
+  <div
+    class="d-flex gap-5 flex-grow-1 w-100 p-5 pt-4 justify-content-center align-items-center flex-wrap"
+  >
+    <div
+      *ngIf="mostOrderedProducts.length === 0"
+      class="d-flex flex-column align-items-center justify-content-center gap-3 w-100 h-100"
+    >
+      <h2>No orders placed this month...</h2>
+      <button class="btn primary-green fs-4" (click)="goToDashboard()">
+        Go To Dashboard
+      </button>
+    </div>
+    <div
+      *ngFor="let product of mostOrderedProducts"
+      style="height: max-content"
+      class="border rounded p-2 bg-light d-flex justify-content-center"
+    >
+      <app-product-card [product]="product"></app-product-card>
+    </div>
+  </div>
+</div>

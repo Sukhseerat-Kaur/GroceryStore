@@ -1,0 +1,137 @@
+<div
+  class="d-flex flex-column gap-2 h-100 align-items-center h-100 justify-content-center"
+>
+  <form
+    [formGroup]="userRegistrationForm"
+    (ngSubmit)="onSubmit()"
+    class="d-flex flex-column gap-2"
+  >
+    <div class="form-group d-flex flex-column">
+      <label name="name" class="fs-5 mb-1">Name:</label>
+      <input
+        class="form-control"
+        type="text"
+        id="name"
+        placeholder="Name"
+        formControlName="name"
+        [ngClass]="{
+          'is-invalid': userRegistrationFormControls['name'].touched && userRegistrationFormControls['name'].errors?.['required']
+        }"
+      />
+    </div>
+    <div class="d-flex justify-content-end">
+      <span
+        class="text-danger"
+        *ngIf="userRegistrationFormControls['name'].touched && userRegistrationFormControls['name'].errors?.['required']"
+        >Please enter a Name.
+      </span>
+    </div>
+    <div class="form-group d-flex flex-column">
+      <label name="email" class="fs-5 mb-1">Email:</label>
+      <input
+        class="form-control"
+        type="text"
+        id="email"
+        placeholder="Enter Email: "
+        formControlName="userEmail"
+        [ngClass]="{
+          'is-invalid': userRegistrationFormControls['userEmail'].touched && (userRegistrationFormControls['userEmail'].errors?.['email'] ||  userRegistrationFormControls['userEmail'].errors?.['required'])
+        }"
+      />
+    </div>
+    <div class="d-flex justify-content-end">
+      <span
+        class="text-danger"
+        *ngIf="userRegistrationFormControls['userEmail'].touched && userRegistrationFormControls['userEmail'].errors?.['email']"
+        >Please enter a valid email.
+      </span>
+      <span
+        class="text-danger"
+        *ngIf="userRegistrationFormControls['userEmail'].touched &&  userRegistrationFormControls['userEmail'].errors?.['required']"
+        >Please enter a valid email.
+      </span>
+    </div>
+
+    <div class="form-group d-flex flex-column">
+      <label name="phonenumber" class="fs-5 mb-1">Phone Number</label>
+      <input
+        class="form-control"
+        type="text"
+        id="phonenumber"
+        placeholder="Phone Number"
+        formControlName="phonenumber"
+        [ngClass]="{
+          'is-invalid': userRegistrationFormControls['phonenumber'].touched && (userRegistrationFormControls['phonenumber'].errors?.['required'] || userRegistrationFormControls['phonenumber'].errors?.['pattern'])
+        }"
+      />
+    </div>
+    <div class="d-flex justify-content-end">
+      <span
+        class="text-danger"
+        *ngIf="userRegistrationFormControls['phonenumber'].touched && userRegistrationFormControls['phonenumber'].errors?.['required']"
+        >Please enter Phone Number.</span
+      >
+      <span
+        class="text-danger"
+        *ngIf="userRegistrationFormControls['phonenumber'].touched && userRegistrationFormControls['phonenumber'].errors?.['pattern']"
+        >Please enter a valid Phone Number.</span
+      >
+    </div>
+
+    <div class="form-group d-flex flex-column">
+      <label name="password" class="fs-5 mb-1">Password: </label>
+      <input
+        class="form-control"
+        type="password"
+        id="password"
+        placeholder="Enter password: "
+        formControlName="password"
+        [ngClass]="{
+          'is-invalid': userRegistrationFormControls['password'].touched && (userRegistrationFormControls['password'].errors?.['required'])
+        }"
+      />
+    </div>
+    <div class="d-flex justify-content-end">
+      <span
+        class="text-danger"
+        *ngIf="userRegistrationFormControls['password'].errors?.['required'] && userRegistrationFormControls['password'].touched"
+        >Please enter a password.</span
+      >
+    </div>
+    <div class="form-group d-flex flex-column">
+      <label name="confirmPassword" class="fs-5 mb-1">Confirm Password:</label>
+      <input
+        class="form-control"
+        type="password"
+        id="confirmPassword"
+        placeholder="Confirm Password"
+        formControlName="confirmPassword"
+        [ngClass]="{
+          'is-invalid':
+            userRegistrationFormControls['password'].touched &&
+            userRegistrationForm.hasError('match_error')
+        }"
+      />
+    </div>
+    <div class="d-flex justify-content-end">
+      <span
+        class="text-danger"
+        *ngIf="
+          userRegistrationFormControls['password'].touched &&
+          userRegistrationForm.hasError('match_error')
+        "
+        >Password doesn't match.</span
+      >
+    </div>
+    <div class="form-group d-flex justify-content-center w-100 mt-2">
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="!userRegistrationForm.valid"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+  <span>Already a user? <a routerLink="/login">Login here</a></span>
+</div>

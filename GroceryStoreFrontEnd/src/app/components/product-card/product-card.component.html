@@ -1,0 +1,35 @@
+<div class="overflow-hidden">
+  <img
+    [src]="getImageUrl(product.productId)"
+    [alt]="product.productName"
+    width="200"
+    height="200"
+    class="rounded"
+  />
+  <div class="d-flex flex-column p-2">
+    <h4>
+      {{ product.productName | slice : 0 : 13
+      }}<span *ngIf="product.productName.length > 13">...</span>
+    </h4>
+    <span
+      >{{ product.productDescription | slice : 0 : 20
+      }}<span *ngIf="product.productDescription.length > 20">...</span></span
+    >
+    <div class="mt-2">
+      <del style="color: rgb(179, 173, 173)"
+        >&#8377;{{ product.productPrice }} </del
+      >&nbsp;
+      <span class="h5"
+        >&#8377;{{ product.productPrice - product.productDiscount }}</span
+      >
+      <span class="h6 text-primary-green"
+        >&nbsp;&#40;&#8377;{{ product.productDiscount }} Off&#41;</span
+      >
+    </div>
+    <div class="w-100 d-flex justify-content-center mt-3">
+      <button class="btn w-100 primary-green" (click)="goToProductPage()">
+        View Product
+      </button>
+    </div>
+  </div>
+</div>
